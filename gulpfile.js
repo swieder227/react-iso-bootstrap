@@ -3,12 +3,17 @@ var connect = require("gulp-connect");
 var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
 var concat = require("gulp-concat");
-
+var watchify = require("watchify");
+var browserify = require("browserify");
+var reactify = require('reactify');
+var source = require('vinyl-source-stream');
+var gutil = require('gulp-util');
 
 var PATH = {
   HTML_SRC : "./src/index.html",
   HTML_OUT_DEV : "./dist/dev",
-  SCSS_SRC : ["./src/scss/*.scss", "./src/components/**/*.scss"]
+  SCSS_SRC : ["./src/scss/*.scss", "./src/components/**/*.scss"],
+  JS_OUT_DEV : "./dist/dev/js",
 }
 
 // Create a server at the Dev build location
@@ -38,6 +43,44 @@ gulp.task('scssDev', function(){
     .pipe(connect.reload());
 });
 
+function handleErrors() {
+  var args = Array.prototype.slice.call(arguments);
+  notify.onError({
+    title: 'Compile Error',
+    message: '<%= error.message %>'
+  }).apply(this, args);
+  this.emit('end'); // Keep gulp from hanging on this task
+}
+
+gulp.task('bundleDev', function(){
+  
+  // browserify will look at all moudle.exports and requires(), starting at 'entries' and concat files with correct dependencies
+  // watchify is a cache/performance layer around browserify
+  var watcher  = watchify(browserify({
+    entries: ["./src/app.jsx"],
+    transform: [reactify],
+    extensions: ['.jsx'],
+    debug: true,
+    cache: {}, packageCache: {}, fullPaths: true
+  }));
+  
+  // use above configuration in a watch mode. 
+  // also bundle once start-up.
+  return watcher.on('update', function () {
+    watcher.bundle()
+      .on('error', handleErrors)
+      .pipe(source("build.js"))
+      .pipe(gulp.dest(PATH.JS_OUT_DEV))
+      .pipe(connect.reload());
+      gutil.log("Finished", gutil.colors.cyan("'bundleDev update'"), "@", gutil.colors.green(PATH.JS_OUT_DEV))
+  })
+  .bundle()
+  .pipe(source("build.js"))
+  .pipe(gulp.dest(PATH.JS_OUT_DEV))
+  .pipe(connect.reload());
+  gutil.log("Finished", gutil.colors.cyan("'bundleDev update'"), "@", gutil.colors.green(PATH.JS_OUT_DEV))
+});
+
 // Watch files, run task when modified.
 gulp.task("watchDev", function(){
   
@@ -49,5 +92,5 @@ gulp.task("watchDev", function(){
 
 });
 
-gulp.task('default', ['connectDev', "watchDev"]);
+gulp.task('default', ['connectDev', "watchDev", "bundleDev"]);
 
