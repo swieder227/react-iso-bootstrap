@@ -78,7 +78,6 @@ gulp.task('bundleDev', function(){
   .pipe(source("build.js"))
   .pipe(gulp.dest(PATH.JS_OUT_DEV))
   .pipe(connect.reload());
-  gutil.log("Finished", gutil.colors.cyan("'bundleDev update'"), "@", gutil.colors.green(PATH.JS_OUT_DEV))
 });
 
 // Watch files, run task when modified.
