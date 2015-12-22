@@ -6,15 +6,15 @@ class ExampleStore {
     this.examples = [
       {
         "id" : 1,
-        "name" : "Foobar 1"
+        "name" : "Default data in Store"
       },
       {
         "id" : 2,
-        "name" : "Foobazz 2"
+        "name" : "Accessed across Components"
       },
       {
         "id" : 3,
-        "name" : "Barfoo 3"
+        "name" : "Centralized data storage"
       }
     ];
 

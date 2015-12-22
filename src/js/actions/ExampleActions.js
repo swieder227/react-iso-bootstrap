@@ -6,4 +6,6 @@ class ExampleActions {
   }
 }
 
+window.ExampleActions = ExampleActions;
+
 module.exports = alt.createActions(ExampleActions);

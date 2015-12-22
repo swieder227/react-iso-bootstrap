@@ -6,4 +6,8 @@ import ReactDOM from 'react-dom';
 
 import {ExampleComponent} from './components/ExampleComponent/ExampleComponent';
 
-ReactDOM.render(<ExampleComponent fname="Jamaal" />, document.getElementById('main-ui'));
+ReactDOM.render(
+<div>
+  <ExampleComponent />
+  <ExampleComponent />
+</div>, document.getElementById('main-ui'));
