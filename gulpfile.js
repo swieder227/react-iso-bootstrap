@@ -5,15 +5,16 @@ var sourcemaps = require("gulp-sourcemaps");
 var concat = require("gulp-concat");
 var watchify = require("watchify");
 var browserify = require("browserify");
-var reactify = require('reactify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
+var notify = require('gulp-notify');
 
 var PATH = {
-  HTML_SRC : "./src/index.html",
-  HTML_OUT_DEV : "./dist/dev",
-  SCSS_SRC : ["./src/scss/*.scss", "./src/components/**/*.scss"],
-  JS_OUT_DEV : "./dist/dev/js",
+  HTML_SRC : "src/index.html",
+  HTML_OUT_DEV : "dist/dev",
+  SCSS_SRC : ["src/scss/*.scss", "src/components/**/*.scss"],
+  JS_OUT_DEV : "dist/dev/js",
 }
 
 // Create a server at the Dev build location
@@ -58,10 +59,12 @@ gulp.task('bundleDev', function(){
   // watchify is a cache/performance layer around browserify
   var watcher  = watchify(browserify({
     entries: ["./src/app.jsx"],
-    transform: [reactify],
+    transform: babelify.configure({ presets: ["es2015", "stage-0", "react"] }),
     extensions: ['.jsx'],
     debug: true,
-    cache: {}, packageCache: {}, fullPaths: true
+    cache: {},
+    packageCache: {},
+    fullPaths: true
   }));
   
   // use above configuration in a watch mode. 
@@ -79,6 +82,7 @@ gulp.task('bundleDev', function(){
   .pipe(gulp.dest(PATH.JS_OUT_DEV))
   .pipe(connect.reload());
 });
+
 
 // Watch files, run task when modified.
 gulp.task("watchDev", function(){

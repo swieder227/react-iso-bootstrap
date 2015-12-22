@@ -1,8 +1,12 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+'use strict';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-ReactDOM.render(
-  <div>
-    Sup from React
-  </div>, document.getElementById('main-ui'));
+var square = (b) => {
+    return b * b;
+};
+
+import {ExampleComponent} from './components/ExampleComponent/ExampleComponent.jsx';
+
+ReactDOM.render(<ExampleComponent fname="Jamaal" />, document.getElementById('main-ui'));
