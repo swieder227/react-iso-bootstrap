@@ -3,10 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var square = (b) => {
-    return b * b;
-};
 
-import {ExampleComponent} from './components/ExampleComponent/ExampleComponent.jsx';
+import {ExampleComponent} from './components/ExampleComponent/ExampleComponent';
 
 ReactDOM.render(<ExampleComponent fname="Jamaal" />, document.getElementById('main-ui'));
