@@ -15,18 +15,19 @@ export class ExampleComponent extends React.Component {
     example_list : ExampleStore.getState().examples
   }
 
-  // Updates the internal state variables via React setState fn
+  // Updates the internal state variables via React setState()
   updateName = () => {
     this.setState({ name: this.refs.input.value }) 
   }
 
   // These add/remove event listeners to the store when Component is add/remove from DOM.
   // When ExampleStore emits change, we fire our onChange function to update Component State.
-  componentDidMount() {
-    ExampleStore.listen(this.onChange.bind(this));
+  // Look at ConnectedToStore/PureComponent examples to see how to extrapolate these functions.
+  componentDidMount = () => {
+    ExampleStore.listen(this.onChange);
   }
-  componentWillUnmount() {
-    ExampleStore.unlisten(this.onChange.bind(this));
+  componentWillUnmount = () => {
+    ExampleStore.unlisten(this.onChange);
   }
   onChange = (state) => {
     this.setState({example_list : state.examples});
@@ -50,7 +51,7 @@ export class ExampleComponent extends React.Component {
   render() {
     return (
       <div className="example-component">
-        <h3>This is a React ExampleComponent!</h3>
+        <h3>ExampleComponent</h3>
         
         <h4>A component-level state demo</h4>
         <p>this.state.name: {this.state.name}</p>
@@ -59,7 +60,7 @@ export class ExampleComponent extends React.Component {
         
         <hr/>
 
-        <h4>A global-level store state demo</h4>
+        <h4>A global-level store <em>state</em> demo</h4>
         <ol>
         {this.state.example_list.map((ex) => {
           return (
