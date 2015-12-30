@@ -1,7 +1,7 @@
 import React from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
-import ExampleStore from '../../js/stores/ExampleStore.js';
-
+import ExampleStore from '../../js/stores/ExampleStore';
+import ExampleActionButton from './ExampleActionButton';
 
 /*
 * This is a mostly "Pure" Component. Here's why... 
@@ -10,7 +10,7 @@ import ExampleStore from '../../js/stores/ExampleStore.js';
 *
 * https://github.com/altjs/connect-to-stores
 */
-export class ExampleConnectedToStore extends React.Component {
+class ExampleConnectedToStore extends React.Component {
   constructor() {
     super();
   }
@@ -58,9 +58,12 @@ export class ExampleConnectedToStore extends React.Component {
         }
         </ul>
 
+        <hr />
+        <ExampleActionButton />
+
       </div>
     )
   }
 }
 
-ExampleConnectedToStore = connectToStores(ExampleConnectedToStore);
+export default ExampleConnectedToStore = connectToStores(ExampleConnectedToStore);

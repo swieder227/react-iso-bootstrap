@@ -1,6 +1,7 @@
 import React from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import ExampleStore from '../../js/stores/ExampleStore.js';
+import ExampleActionButton from './ExampleActionButton';
 
 /*
 * The Pure Component validates and display data. This is the __preferred__ method when applicable for reusability and separation of concerns.
@@ -9,7 +10,7 @@ import ExampleStore from '../../js/stores/ExampleStore.js';
 *
 * http://alt.js.org/docs/components/altContainer/
 */
-export class ExamplePureComponent extends React.Component {
+export default class ExamplePureComponent extends React.Component {
   constructor() {
     super();
   }
@@ -50,7 +51,11 @@ export class ExamplePureComponent extends React.Component {
         }
         </ul>
 
+        <hr />
+        <ExampleActionButton />
+
       </div>
     )
   }
 }
+

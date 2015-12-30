@@ -1,8 +1,9 @@
 import React from 'react';
 import ExampleStore from '../../js/stores/ExampleStore';
 import ExampleActions from '../../js/actions/ExampleActions';
+import ExampleActionButton from './ExampleActionButton';
 
-export class ExampleComponent extends React.Component {
+export default class ExampleComponent extends React.Component {
   constructor() {
     super();
 
@@ -33,21 +34,6 @@ export class ExampleComponent extends React.Component {
     this.setState({example_list : state.examples});
   }
 
-  sendExampleAction() {
-    ExampleActions.updateExamples(
-      [
-        {
-          "id" : 10,
-          "name" : "Stores allows components to easily communicate."
-        },
-        {
-          "id" : 20,
-          "name" : "While centralizing the data and logic."
-        }
-      ]
-    )
-  }
-
   render() {
     return (
       <div className="example-component">
@@ -68,7 +54,10 @@ export class ExampleComponent extends React.Component {
           );
         })}
         </ol>
-        <button onClick={this.sendExampleAction}>Send StoreAction()</button>
+
+        <hr />
+        <ExampleActionButton />
+
       </div>
     );
   }

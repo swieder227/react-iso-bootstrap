@@ -24,8 +24,10 @@
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "history": "^1.17.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-router": "^1.0.3",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.1"
   }

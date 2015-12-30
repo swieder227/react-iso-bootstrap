@@ -19,13 +19,18 @@ class ExampleStore {
     ];
 
     this.bindListeners({
-      handleUpdateExamples: ExampleActions.UPDATE_EXAMPLES
+      handleUpdateExamples: ExampleActions.UPDATE_EXAMPLES,
+      handleAppendExample: ExampleActions.APPEND_EXAMPLE
     });
   }
 
   handleUpdateExamples(examples){
     this.examples = examples;
     // optionally return false to suppress the store change event
+  }
+
+  handleAppendExample(example) {
+    this.examples.push(example);
   }
 
   
