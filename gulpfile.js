@@ -12,9 +12,10 @@ var notify = require('gulp-notify');
 
 var PATH = {
   HTML_SRC : "src/index.html",
-  HTML_OUT_DEV : "dist/dev",
+  HTML_OUT_DEV : "public",
   SCSS_SRC : ["src/scss/*.scss", "src/components/**/*.scss"],
-  JS_OUT_DEV : "dist/dev/js",
+  SCSS_OUT : "public",
+  JS_OUT_DEV : "public",
 }
 
 // Create a server at the Dev build location
@@ -40,7 +41,7 @@ gulp.task('scssDev', function(){
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('styles.css'))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest("./dist/dev/css"))
+    .pipe(gulp.dest(PATH.SCSS_OUT))
     .pipe(connect.reload());
 });
 
@@ -58,7 +59,7 @@ gulp.task('bundleDev', function(){
   // browserify will look at all moudle.exports and requires(), starting at 'entries' and concat files with correct dependencies
   // watchify is a cache/performance layer around browserify
   var watcher  = watchify(browserify({
-    entries: ["./src/app.jsx"],
+    entries: ["./src/main.js"],
     transform: babelify.configure({ presets: ["es2015", "stage-0", "react"] }),
     extensions: ['.jsx'],
     debug: true,
@@ -95,5 +96,5 @@ gulp.task("watchDev", function(){
 
 });
 
-gulp.task('default', ['connectDev', "watchDev", "bundleDev"]);
+gulp.task('default', ["scssDev", "watchDev", "bundleDev"]);
 
