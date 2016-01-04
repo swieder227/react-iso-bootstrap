@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/App';
+import App from './app.jsx';
 import {Router, Route, Link, IndexLink, IndexRoute} from 'react-router';
 
 import ExampleComponent from './components/ExampleComponent/ExampleComponent';

@@ -6,7 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        This is ./component/App WOO<hr/>
+        This is ./src/app.jsx<hr/>
         {/* Static. E.g. may be replaced with a <Header /> Component */}
         <button><IndexLink activeClassName="active" to="/">Example - Basic</IndexLink></button>
         <button><Link activeClassName="active" to="/connected">Example - connectToStores()</Link></button>

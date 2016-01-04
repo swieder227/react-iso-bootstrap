@@ -9,6 +9,8 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
 var notify = require('gulp-notify');
+var nodemon = require('nodemon');
+var livereload = require('gulp-livereload');
 
 var PATH = {
   HTML_SRC : "src/index.html",
@@ -19,19 +21,34 @@ var PATH = {
 }
 
 // Create a server at the Dev build location
-gulp.task("connectDev", function(){
-  connect.server({
-    root: PATH.HTML_OUT_DEV,
-    port: 8000,
-    livereload: true
-  })
+gulp.task("connectDev", ["scssDev", "watchDev", "bundleDev"], function(){
+  livereload.listen();
+  nodemon({
+    script: 'server.js',
+    ext: 'html css js',
+    stdout: false
+  }).on('readable', function() {
+    this.stdout.on('data', function(chunk) {
+      if (/Express listening on port/.test(chunk)) {
+        // CURRENTLY DOESNT RELOAD PROPERLY... TODO.
+        livereload.reload("server.js");
+      }
+      process.stdout.write(chunk)
+    })
+  });
+
+  // connect.server({
+  //   root: PATH.HTML_OUT_DEV,
+  //   port: 8000,
+  //   livereload: true
+  // })
 });
 
 // Copy src HTML to Dev and update livereload
 gulp.task("htmlDev", function(){
   gulp.src(PATH.HTML_SRC)
-    .pipe(gulp.dest(PATH.HTML_OUT_DEV))
-    .pipe(connect.reload());
+    .pipe(gulp.dest(PATH.HTML_OUT_DEV));
+    // .pipe(connect.reload());
 });
 
 // Compile Sass and update livereload
@@ -42,7 +59,7 @@ gulp.task('scssDev', function(){
     .pipe(concat('styles.css'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(PATH.SCSS_OUT))
-    .pipe(connect.reload());
+    // .pipe(connect.reload());
 });
 
 function handleErrors() {
@@ -59,7 +76,7 @@ gulp.task('bundleDev', function(){
   // browserify will look at all moudle.exports and requires(), starting at 'entries' and concat files with correct dependencies
   // watchify is a cache/performance layer around browserify
   var watcher  = watchify(browserify({
-    entries: ["./src/main.js"],
+    entries: ["./client.js"],
     transform: babelify.configure({ presets: ["es2015", "stage-0", "react"] }),
     extensions: ['.jsx'],
     debug: true,
@@ -74,14 +91,14 @@ gulp.task('bundleDev', function(){
     watcher.bundle()
       .on('error', handleErrors)
       .pipe(source("build.js"))
-      .pipe(gulp.dest(PATH.JS_OUT_DEV))
-      .pipe(connect.reload());
+      .pipe(gulp.dest(PATH.JS_OUT_DEV));
+      // .pipe(connect.reload());
       gutil.log("Finished", gutil.colors.cyan("'bundleDev update'"), "@", gutil.colors.green(PATH.JS_OUT_DEV))
   })
   .bundle()
   .pipe(source("build.js"))
-  .pipe(gulp.dest(PATH.JS_OUT_DEV))
-  .pipe(connect.reload());
+  .pipe(gulp.dest(PATH.JS_OUT_DEV));
+  // .pipe(connect.reload());
 });
 
 
@@ -96,5 +113,5 @@ gulp.task("watchDev", function(){
 
 });
 
-gulp.task('default', ["scssDev", "watchDev", "bundleDev"]);
+gulp.task('default', ["connectDev", "scssDev", "watchDev", "bundleDev"]);
 
