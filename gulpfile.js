@@ -29,7 +29,7 @@ gulp.task("connectDev", ["scssDev", "watchDev", "bundleDev"], function(){
     script: 'server.js',
     ext: 'html css js',
     stdout: false
-  }).on('readable', function() {3
+  }).on('readable', function() {
     // Using on 'readable' because 'restart' could fire before js re-bundles
     // we check the server's sdout data for the string output by server.js:app.listen()
     this.stdout.on('data', function(chunk) {
