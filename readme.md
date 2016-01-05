@@ -1,6 +1,6 @@
 # React Bootstrap. A scaffold for __HTML + ReactJS__ Single-Page Applications.
 
-Hit the ground running and immediately start building in React!
+**Branched specifically for client-side only implementations.**
 
 ### Toolset:
 1. [ReactJS](https://facebook.github.io/react/) - Component-based javascript framework for building UI's

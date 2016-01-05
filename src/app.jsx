@@ -14,7 +14,8 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        
+        Coming from app.jsx
+        <hr/>        
         {/* Static. E.g. may be replaced with a <Header /> Component */}
         <button><IndexLink activeClassName="foo" to="/">Example - Basic</IndexLink></button>
         <button><Link activeClassName="foo" to="/connected">Example - connectToStores()</Link></button>

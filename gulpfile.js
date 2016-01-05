@@ -11,27 +11,27 @@ var gutil = require('gulp-util');
 var notify = require('gulp-notify');
 
 var PATH = {
-  HTML_SRC : "src/index.html",
-  HTML_OUT_DEV : "dist/dev",
+  HTML_SRC : "./index.html",
   SCSS_SRC : ["src/scss/*.scss", "src/components/**/*.scss"],
-  JS_OUT_DEV : "dist/dev/js",
+  SCSS_OUT : "public",
+  JS_OUT_DEV : "public",
 }
 
 // Create a server at the Dev build location
 gulp.task("connectDev", function(){
   connect.server({
-    root: PATH.HTML_OUT_DEV,
+    root: "./",
     port: 8000,
     livereload: true
   })
 });
 
 // Copy src HTML to Dev and update livereload
-gulp.task("htmlDev", function(){
-  gulp.src(PATH.HTML_SRC)
-    .pipe(gulp.dest(PATH.HTML_OUT_DEV))
-    .pipe(connect.reload());
-});
+// gulp.task("htmlDev", function(){
+//   gulp.src(PATH.HTML_SRC)
+//     .pipe(gulp.dest(PATH.HTML_OUT_DEV))
+//     .pipe(connect.reload());
+// });
 
 // Compile Sass and update livereload
 gulp.task('scssDev', function(){
@@ -40,7 +40,7 @@ gulp.task('scssDev', function(){
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('styles.css'))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest("./dist/dev/css"))
+    .pipe(gulp.dest(PATH.SCSS_OUT))
     .pipe(connect.reload());
 });
 
@@ -88,7 +88,7 @@ gulp.task('bundleDev', function(){
 gulp.task("watchDev", function(){
   
   // When src HTML changes, update dev HTML
-  gulp.watch([PATH.HTML_SRC], ["htmlDev"]);
+  // gulp.watch([PATH.HTML_SRC], ["htmlDev"]);
 
   // When scss changes, re-compile
   gulp.watch(PATH.SCSS_SRC, ['scssDev']);
