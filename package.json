@@ -45,6 +45,7 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-router": "^1.0.3",
+    "serve-favicon": "^2.3.0",
     "swig": "^1.4.2",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.1"

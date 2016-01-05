@@ -27,9 +27,11 @@ gulp.task("connectDev", ["scssDev", "watchDev", "bundleDev"], function(){
     script: 'server.js',
     ext: 'html css js',
     stdout: false
-  }).on('readable', function() {
+  }).on('readable', function() {3
+    // Using on 'readable' because 'restart' could fire before js re-bundles
+    // we check the server's sdout data for the string output by server.js:app.listen()
     this.stdout.on('data', function(chunk) {
-      if (/Express listening on port/.test(chunk)) {
+      if (/Express listening/.test(chunk)) {
         // CURRENTLY DOESNT RELOAD PROPERLY... TODO.
         livereload.reload("server.js");
       }
