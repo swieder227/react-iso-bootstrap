@@ -21,6 +21,8 @@ var PATH = {
 }
 
 // Create a server at the Dev build location
+// script: entry point
+// ext: files to watch and restart if changed
 gulp.task("connectDev", ["scssDev", "watchDev", "bundleDev"], function(){
   livereload.listen();
   nodemon({
@@ -32,25 +34,17 @@ gulp.task("connectDev", ["scssDev", "watchDev", "bundleDev"], function(){
     // we check the server's sdout data for the string output by server.js:app.listen()
     this.stdout.on('data', function(chunk) {
       if (/Express listening/.test(chunk)) {
-        // CURRENTLY DOESNT RELOAD PROPERLY... TODO.
         livereload.reload("server.js");
       }
       process.stdout.write(chunk)
     })
   });
-
-  // connect.server({
-  //   root: PATH.HTML_OUT_DEV,
-  //   port: 8000,
-  //   livereload: true
-  // })
 });
 
 // Copy src HTML to Dev and update livereload
 gulp.task("htmlDev", function(){
   gulp.src(PATH.HTML_SRC)
     .pipe(gulp.dest(PATH.HTML_OUT_DEV));
-    // .pipe(connect.reload());
 });
 
 // Compile Sass and update livereload
@@ -61,7 +55,6 @@ gulp.task('scssDev', function(){
     .pipe(concat('styles.css'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(PATH.SCSS_OUT))
-    // .pipe(connect.reload());
 });
 
 function handleErrors() {
@@ -94,13 +87,11 @@ gulp.task('bundleDev', function(){
       .on('error', handleErrors)
       .pipe(source("build.js"))
       .pipe(gulp.dest(PATH.JS_OUT_DEV));
-      // .pipe(connect.reload());
       gutil.log("Finished", gutil.colors.cyan("'bundleDev update'"), "@", gutil.colors.green(PATH.JS_OUT_DEV))
   })
   .bundle()
   .pipe(source("build.js"))
   .pipe(gulp.dest(PATH.JS_OUT_DEV));
-  // .pipe(connect.reload());
 });
 
 

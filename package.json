@@ -28,6 +28,7 @@
     "babel-register": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
+    "connect-livereload": "^0.5.4",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",

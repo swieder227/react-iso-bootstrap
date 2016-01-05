@@ -28,6 +28,7 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname,'src/views'));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(require('connect-livereload')());
 
 /*
   Example fire when url is /pure
@@ -40,7 +41,7 @@ app.get('/pure', function(req, res, next){
       examples : [
         {
           "id" : 9999,
-          "name" : "From the Server!"
+          "name" : "From the Server :)"
         }
       ]
     }
