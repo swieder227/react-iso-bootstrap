@@ -1,4 +1,4 @@
-# React Bootstrap. A scaffold for __HTML + ReactJS__ Single-Page Applications.
+# React Bootstrap. A scaffold for __HTML + ReactJS__ Isomorphic Single-Page Applications.
 
 Hit the ground running and immediately start building in React!
 
@@ -18,8 +18,17 @@ Hit the ground running and immediately start building in React!
 
 Now you should be running a webserver with livereload, and a watcher build task that compiles scss and js on save.
 
+### Notes on How Isomorphic Works:
+Isomorphic Web-Apps can run both server-side and client-side, while sharing the same codebase. The code is pre-rendered and delivered as HTML, where the client can pick back up and continue running the application.
+###### In our case:
+1. **gulp** runs a **node** server at `./server.js`.  
+2. Request is processed and **react-router**, shared between client & server, decides correct React component to render.
+3. **ReactDOM/server** method **renderToString()** coverts the React component to an HTML string.
+4. **Iso** ([an isomorphic Alt helper library]((https://github.com/goatslacker/iso))) assists in passing on the data server-side.
+5. Final HTML is rendered to a **swig** template and sent to client.
+6. **Iso** bootstraps the passed down data and re-hydrates the client-side React components.
+
 ### Todo:
-* Research server-side rendering
 * Create Prod build process
 
 #### Resources: 
