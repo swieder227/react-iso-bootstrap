@@ -22,6 +22,7 @@ Now you should be running a webserver with livereload, and a watcher build task 
 
 ### Important Disclaimer for Client-Facing Projects:
 This bootstrap is setup to transpile next generation ES6+ javascript syntax to browser-supported ES5+ syntax, including experimental features by default. If you're building a client-facing project, strongly consider these suggestions for improved stability.
+
 * Remove the more experiemntal `stage-0` from the babel config in `gulpfile.js`
 * [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) your npm dependencies to exact version numbers
 
@@ -41,4 +42,3 @@ Isomorphic Web-Apps can run both server-side and client-side, while sharing the 
 #### Resources: 
 * [React on ES6+](http://babeljs.io/blog/2015/06/07/react-on-es6-plus/)
 * [Alt.js Guide](http://alt.js.org/guide/)
-
