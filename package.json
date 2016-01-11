@@ -40,6 +40,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
     "history": "^1.17.0",
+    "iso": "^5.0.0",
     "morgan": "^1.6.1",
     "nodemon": "^1.8.1",
     "path": "^0.12.7",
