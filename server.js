@@ -18,7 +18,7 @@ var routes = require('./src/routes');
 var alt = require('./src/js/alt');
 
 // Configure `app` as express instance
-var ip = '127.0.0.1';
+var ip = '0.0.0.0';
 var port = 8080;
 var app = express();
 

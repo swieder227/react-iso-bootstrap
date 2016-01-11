@@ -36,6 +36,12 @@ Isomorphic Web-Apps can run both server-side and client-side, while sharing the 
 5. Final HTML is rendered to a **swig** template and sent to client.
 6. **Iso** bootstraps the passed down data and re-hydrates the client-side React components.
 
+### How to do Remote Preview
+1. Run the Node server like normal
+2. Get your IP address. (On Linux run `ifconfig|gret inet`, and look for `inet XX.XX.XX.XXX netmask 0xfffffc00 ...`)
+3. Navigate to http://-your-ip-:port on your remote device
+
+
 ### Todo:
 * Create Prod build process
 
