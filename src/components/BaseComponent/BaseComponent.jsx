@@ -1,7 +1,16 @@
-// import React from 'react';
+import React from 'react';
 
-// export class BaseComponent extends React.Component {
-//   _bind(...methods) {
-//     methods.forEach( (method) => this[method] = this[method].bind(this) );
-//   }
-// }
+export default class XYZ extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+      <div>
+        Foobar
+      </div>
+    )
+  }
+
+}
