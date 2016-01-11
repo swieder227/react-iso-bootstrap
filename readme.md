@@ -14,14 +14,21 @@ Hit the ground running and immediately start building in React!
 1. Confirm that you have latest npm (install via NodeJS if necessary)
 2. Run `npm install` to download dependencies
 3. From the root directory, run `gulp`
-4. Work on source files in `./src`, and compiled files will be put in `./dist`.
+4. Work on source files in `./src`, and compiled files will be put in `./dist`
 
 Now you should be running a webserver with livereload, and a watcher build task that compiles scss and js on save.
+
+**If your gulp build hangs on** `bundleDev`, it's possible that experimental Babel features broke the example code. Comment out the ExampleComponents in `routes.jsx`, save, and re-run the build. More on that below...
+
+### Important Disclaimer for Client-Facing Projects:
+This bootstrap is setup to transpile next generation ES6+ javascript syntax to browser-supported ES5+ syntax, including experimental features by default. If you're building a client-facing project, strongly consider these suggestions for improved stability.
+* Remove the more experiemntal `stage-0` from the babel config in `gulpfile.js`
+* [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) your npm dependencies to exact version numbers
 
 ### Notes on How Isomorphic Works:
 Isomorphic Web-Apps can run both server-side and client-side, while sharing the same codebase. The code is pre-rendered and delivered as HTML, where the client can pick back up and continue running the application.
 ###### In our case:
-1. **gulp** runs a **node** server at `./server.js`.  
+1. **gulp** runs a **node** server at `./server.js`  
 2. Request is processed and **react-router**, shared between client & server, decides correct React component to render.
 3. **ReactDOM/server** method **renderToString()** coverts the React component to an HTML string.
 4. **Iso** ([an isomorphic Alt helper library]((https://github.com/goatslacker/iso))) assists in passing on the data server-side.

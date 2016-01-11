@@ -13,7 +13,7 @@ export default class ExampleActionButton extends React.Component {
       name: this.refs.input.value
     }
     ExampleActions.appendExample(example);
-  }
+  };
 
 
   sendExampleAction() {

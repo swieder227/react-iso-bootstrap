@@ -14,25 +14,27 @@ export default class ExampleComponent extends React.Component {
   state = {
     name : "Initial State",
     example_list : ExampleStore.getState().examples
-  }
+  };
 
   // Updates the internal state variables via React setState()
   updateName = () => {
-    this.setState({ name: this.refs.input.value }) 
-  }
+    this.setState({ name: this.refs.input.value });
+  };
 
   // These add/remove event listeners to the store when Component is add/remove from DOM.
   // When ExampleStore emits change, we fire our onChange function to update Component State.
   // Look at ConnectedToStore/PureComponent examples to see how to extrapolate these functions.
   componentDidMount = () => {
     ExampleStore.listen(this.onChange);
-  }
+  };
+
   componentWillUnmount = () => {
     ExampleStore.unlisten(this.onChange);
-  }
+  };
+
   onChange = (state) => {
     this.setState({example_list : state.examples});
-  }
+  };
 
   render() {
     return (
