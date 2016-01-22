@@ -11,12 +11,17 @@ Hit the ground running and immediately start building in React!
 6. [Gulp](http://gulpjs.com/) - Build process and automation tool
 
 ### Build Process:
-1. Confirm that you have latest npm (install via NodeJS if necessary)
-2. Run `npm install` to download dependencies
-3. From the root directory, run `gulp`
-4. Work on source files in `./src`, and compiled files will be put in `./dist`
 
-Now you should be running a webserver with livereload, and a watcher build task that compiles scss and js on save.
+##### This how to instantiate the project and run the automation tools on OS X. 
+npm is the package manager that will download dependencies, and gulp is the command line tool for automation tasks.
+
+1. Confirm that you have latest npm (run `npm -v`, if it says not found then install via [NodeJS](https://nodejs.org/en/download/))
+2. From the root directory, run `npm install` to download dependencies
+3. Confirm that you have gulp installed on your command line (run `gulp`, if not found run `npm install -g gulp`, possible requiring sudo)
+4. If installed, running `gulp` from the root directly will run the default task to setup a webserver with livereload, and a watcher build task that compiles scss and js on save.
+4. Source files in in `/` and `./src`, while compiled files will be put in `./public`
+
+Now you're up and ready to begin coding!
 
 **If your gulp build hangs on** `bundleDev`, it's possible that experimental Babel features broke the example code. Comment out the ExampleComponents in `routes.jsx`, save, and re-run the build. More on that below...
 
@@ -28,19 +33,13 @@ This bootstrap is setup to transpile next generation ES6+ javascript syntax to b
 
 ### Notes on How Isomorphic Works:
 Isomorphic Web-Apps can run both server-side and client-side, while sharing the same codebase. The code is pre-rendered and delivered as HTML, where the client can pick back up and continue running the application.
-###### In our case:
+##### In our case:
 1. **gulp** runs a **node** server at `./server.js`  
 2. Request is processed and **react-router**, shared between client & server, decides correct React component to render.
 3. **ReactDOM/server** method **renderToString()** coverts the React component to an HTML string.
-4. **Iso** ([an isomorphic Alt helper library]((https://github.com/goatslacker/iso))) assists in passing on the data server-side.
+4. **Iso**, [an isomorphic Alt helper library]((https://github.com/goatslacker/iso)), assists in passing on the data server-side.
 5. Final HTML is rendered to a **swig** template and sent to client.
 6. **Iso** bootstraps the passed down data and re-hydrates the client-side React components.
-
-### How to do Remote Preview
-1. Run the Node server like normal
-2. Get your IP address. (On Linux run `ifconfig|gret inet`, and look for `inet XX.XX.XX.XXX netmask 0xfffffc00 ...`)
-3. Navigate to http://-your-ip-:port on your remote device
-
 
 ### Todo:
 * Create Prod build process
@@ -48,3 +47,4 @@ Isomorphic Web-Apps can run both server-side and client-side, while sharing the 
 #### Resources: 
 * [React on ES6+](http://babeljs.io/blog/2015/06/07/react-on-es6-plus/)
 * [Alt.js Guide](http://alt.js.org/guide/)
+* [React DevTools for Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
