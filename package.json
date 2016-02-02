@@ -38,6 +38,7 @@
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
     "history": "^1.17.0",
     "iso": "^5.0.0",
     "morgan": "^1.6.1",

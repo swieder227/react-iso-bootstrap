@@ -1,5 +1,5 @@
 var gulp = require("gulp");
-var connect = require("gulp-connect");
+var watch = require("gulp-watch");
 var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
 var concat = require("gulp-concat");
@@ -29,7 +29,11 @@ gulp.task("connectDev", ["scssDev", "watchDev", "bundleDev"], function(){
     script: 'server.js',
     ext: 'html css js',
     stdout: false
-  }).on('readable', function() {
+  })
+  .on('start', function() {
+    gutil.log("Starting", gutil.colors.green("Nodemon"));
+  })
+  .on('readable', function() {
     
     // If there's an error, output to console
     this.stderr.on('data', function(chunk) {
@@ -105,10 +109,15 @@ gulp.task('bundleDev', function(){
 gulp.task("watchDev", function(){
   
   // When src HTML changes, update dev HTML
-  gulp.watch([PATH.HTML_SRC], ["htmlDev"]);
+  watch(PATH.HTML_SRC, function(event){
+    gulp.start('htmlDev');
+  });
 
   // When scss changes, re-compile
-  gulp.watch(PATH.SCSS_SRC, ['scssDev']);
+  watch(PATH.SCSS_SRC, function(event){
+    gulp.start('scssDev');
+  });
+  
 
 });
 
