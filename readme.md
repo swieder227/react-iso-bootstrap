@@ -19,14 +19,19 @@ npm is the package manager that will download dependencies, and gulp is the comm
 2. From the root directory, run `npm install` to download dependencies
 3. Confirm that you have gulp installed on your command line (run `gulp`, if not found run `npm install -g gulp`, possible requiring sudo)
 4. If installed, running `gulp` from the root directly will run the default task to setup a webserver with livereload, and a watcher build task that compiles scss and js on save.
-4. Source files in in `/` and `./src`, while compiled files will be put in `./public`
+5. Source files in in `/` and `./src`, while compiled files will be put in `./public`
 
 Now you're up and ready to begin coding!
 
-**If your gulp build hangs on** `bundleDev`, it's possible that experimental Babel features broke the example code. Comment out the ExampleComponents in `routes.jsx`, save, and re-run the build. More on that below...
+### Production Build:
+Run the task `gulp buildProd` to generate production-ready css + jss in `./public/dist`.
+
+Using [dotenv](https://github.com/motdotla/dotenv) to detect a `.env` file at the root directory. Add environment specific variables: `NODE_ENV=production`. The default value is assumed to `development`.
+
+Changing the `NODE_ENV` variable between `development||production` will affect which files are included in the swig template in `./src/views`
 
 ### Important Disclaimer for Client-Facing Projects:
-This bootstrap is setup to transpile next generation ES6+ javascript syntax to browser-supported ES5+ syntax, including experimental features by default. If you're building a client-facing project, strongly consider these suggestions for improved stability.
+This bootstrap is setup to transpile next generation ES6+ javascript syntax to browser-supported ES5+ syntax, including experimental features by default. If you're building a client-facing project, **BEFORE STARTING TO CODE**, strongly consider these suggestions for improved stability.
 
 * Remove the more experimental `stage-0` from the babel config in `gulpfile.js`
 * [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) your npm dependencies to exact version numbers
@@ -41,9 +46,41 @@ Isomorphic Web-Apps can run both server-side and client-side, while sharing the 
 5. Final HTML is rendered to a **swig** template and sent to client.
 6. **Iso** bootstraps the passed down data and re-hydrates the client-side React components.
 
-### Todo:
-* Create Prod build process
+### How to do Remote Preview
+1. Run the Node server like normal
+2. Get your IP address. (On Linux run `ifconfig|grep inet`, and look for `inet XX.XX.XX.XXX netmask 0xfffffc00 ...`)
+3. Navigate to http://-your-ip-:port on your remote device
 
+### Setting up Node server on Ubuntu 14.04 Trusty
+
+#### git
+    
+    $ sudo apt-get update
+    $ sudo apt-get install git
+
+#### Get the code:
+
+1. generate an ssh key, and add it to bitbucket if this deploy machine is new
+
+#### NODE & NPM
+
+    $ sudo apt-get install nodejs
+    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
+    $ sudo apt-get install npm
+    $ cd /var/www/
+    $ sudo mkdir discovery
+    $ sudo chown ubuntu discovery
+    $ git clone git@bitbucket.org:cnstudiotech/discovery-fe-app.git discovery
+    $ cd discovery
+
+
+#### GULP
+    $sudo npm install -g gulp
+  
+#### Install
+    $ npm install
+    $ gulp
+    
 #### Resources: 
 * [React on ES6+](http://babeljs.io/blog/2015/06/07/react-on-es6-plus/)
 * [Alt.js Guide](http://alt.js.org/guide/)

@@ -4,8 +4,12 @@ var path = require('path');
 var logger = require('morgan');
 var favicon = require('serve-favicon');
 
+// Read .env config variables
+require('dotenv').config({silent: true});
+
 // Babel ES6/JSX Compiler
 require('babel-register');
+
 // JS templating engine - http://paularmstrong.github.io/swig/
 var swig  = require('swig');
 
@@ -26,8 +30,9 @@ app.use(logger('dev'))
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname,'src/views'));
+app.set('env', process.env.NODE_ENV || "development");
 app.use(express.static(path.join(__dirname,'public')));
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 app.use(require('connect-livereload')());
 
 /*
@@ -79,7 +84,7 @@ app.use(function(req, res) {
       // 2. https://github.com/goatslacker/iso
       iso.add(content, alt.flush());
       // Render to swig HTML template
-      res.render('index', { html: iso.render() });
+      res.render('index', { html: iso.render(), NODE_ENV: app.get('env') });
 
     } else {
       res.status(404).send('Page Not Found')

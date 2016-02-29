@@ -2,25 +2,28 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Bootstrap</title>
+        <title>Discovery</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <!-- build:css -->
-        <link rel="stylesheet" href="styles.css">
-        <!-- endbuild -->
+        {% if NODE_ENV == "development" %}
+        <link rel="stylesheet" href="/dev/styles.css">
+        {% else %}
+        <link rel="stylesheet" href="/dist/styles.min.css">
+        {% endif %}
 
     </head>
     <body>
-
-        <h1>React Bootstrap</h1>
-        
         <!-- react.js UI - See App.jsx -->
         <div id="app">{{ html|safe }}</div>
         
-        <!-- build:js -->
-        <script src="build.js"></script>
-        <!-- endbuild -->
-
+        <!-- <script src="/vendor/hammer.min.js"></script> -->
+        
+        {% if NODE_ENV == "development" %}
+        <script src="/dev/build.js"></script>
+        {% else %}
+        <script src="/dist/build.min.js"></script>
+        {% endif %}
+        
     </body>
 </html>
